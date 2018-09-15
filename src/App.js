@@ -41,6 +41,12 @@ import MasterMenu from "./Components/Admin/MasterMenu";
 // import bgImage from "./assets/img/cherry.jpg";
 import bgImage from "./assets/img/oranges.jpg";
 
+import { library } from "@fortawesome/fontawesome-svg-core";
+import { faFile, faFilePdf } from "@fortawesome/free-solid-svg-icons";
+
+library.add(faFile);
+library.add(faFilePdf);
+
 const drawerWidth = 240;
 
 const styles = theme => ({
@@ -217,14 +223,14 @@ class App extends Component {
                   />
 
                   <Typography
-                    variant="title"
+                    variant="headline"
                     color="inherit"
                     noWrap
                     className={classes.title}
                     style={{
                       color: "white",
                       fontWeight: "light",
-                      textShadow: "1px 1px gray"
+                      textShadow: "2px 2px silver"
                     }}
                   >
                     The Kitchen Art Company
@@ -288,9 +294,7 @@ class App extends Component {
                         noWrap
                         className={classes.title}
                         style={{ fontWeight: "lighter" }}
-                      >
-                        TKAC
-                      </Typography>
+                      />
                     </div>
                     <Divider />
                     <List>

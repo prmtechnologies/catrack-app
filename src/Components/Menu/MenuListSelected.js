@@ -1,6 +1,9 @@
 import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
-import { Typography } from "@material-ui/core";
+import { Typography, Divider } from "@material-ui/core";
+import LockIcon from "@material-ui/icons/Lock";
+import ClearIcon from "@material-ui/icons/Clear";
+import Grid from "@material-ui/core/Grid";
 
 class MenuListSelected extends Component {
   renderSelected = refKey => {
@@ -33,51 +36,89 @@ class MenuListSelected extends Component {
             let spaces;
             switch (item.level) {
               case 1:
-                variant = "headline";
-                spaces = <span />;
+                variant = "title";
+                spaces = (
+                  <div>
+                    {/* <br />
+                    <br />
+                    <br /> */}
+                  </div>
+                );
                 break;
               case 2:
                 variant = "title";
                 spaces = (
-                  <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                  <div>
+                    {/* <br />
+                    <br />
+                    <br /> */}
+                  </div>
                 );
                 break;
               case 3:
-                variant = "subheading";
+                variant = "headline";
                 spaces = (
-                  <span>
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                  </span>
+                  <div>
+                    {/* <br />
+                    <br />
+                    <Divider />
+                    <br />
+                    <br /> */}
+                  </div>
                 );
                 break;
               case 4:
-                variant = "body1";
-                spaces = (
-                  <span>
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                  </span>
-                );
-
+                variant = "subheading";
+                spaces = <div>{/* <br />
+                    <br /> */}</div>;
                 break;
               default:
-                variant = "body2";
+                variant = "body1";
             }
             return (
-              <Fragment>
+              <div style={{ padding: "5px" }}>
                 {item.selected ? (
-                  <Typography
-                    variant={variant}
-                    key={item.key}
-                    onClick={() => this.props.removeMenuItem(item.key)}
-                  >
+                  <div>
                     {spaces}
-                    {item.value}
-                  </Typography>
+                    <Grid container direction="row">
+                      <Grid item xs={12}>
+                        <ClearIcon
+                          style={{
+                            float: "right",
+                            height: "25px",
+                            color: "silver",
+                            cursor: "pointer"
+                          }}
+                          onClick={() => this.props.removeMenuItem(item.key)}
+                        />
+
+                        <Typography variant={variant} key={item.key}>
+                          {item.level === 3 && item.selected ? (
+                            <center>{item.value}</center>
+                          ) : (
+                            item.value
+                          )}
+                        </Typography>
+
+                        {item.level === 4 && item.selected ? (
+                          <Typography
+                            variant="body1"
+                            style={{ color: "silver", fontStyle: "italic" }}
+                          >
+                            {item.desc}
+                          </Typography>
+                        ) : (
+                          ""
+                        )}
+                      </Grid>
+                    </Grid>
+                    {/* <Divider /> */}
+                  </div>
                 ) : (
                   ""
                 )}
                 {this.renderSelected(item.key)}
-              </Fragment>
+              </div>
             );
           }
         )}

@@ -2,6 +2,7 @@ import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
 
 import Typography from "@material-ui/core/Typography";
+import Divider from "@material-ui/core/Divider";
 import {
   List,
   ListItem,
@@ -62,37 +63,40 @@ class MenuList extends Component {
           {this.props.MenuItems.filter(
             item => item.refKey == this.state.refKey
           ).map((item, id) => (
-            <ListItem
-              key={id}
-              button
-              onClick={() =>
-                item.level === 4
-                  ? ""
-                  : this.setState({
-                      menuHeader: item.value,
-                      refKey: item.key,
-                      breadCrumbText:
-                        this.state.breadCrumbText + "/" + item.value,
-                      breadCrumbValue:
-                        this.state.breadCrumbValue + "/" + item.key
-                    })
-              }
-            >
-              <ListItemIcon>
-                <Fastfood />
-              </ListItemIcon>
-              <ListItemText primary={item.value} />
-              <ListItemSecondaryAction>
-                {item.level !== 1 ? (
-                  <Checkbox
-                    checked={item.selected}
-                    onChange={() => this.props.handleToggle(item.key)}
-                  />
-                ) : (
-                  ""
-                )}
-              </ListItemSecondaryAction>
-            </ListItem>
+            <Fragment>
+              <ListItem
+                key={id}
+                button
+                onClick={() =>
+                  item.level === 4
+                    ? ""
+                    : this.setState({
+                        menuHeader: item.value,
+                        refKey: item.key,
+                        breadCrumbText:
+                          this.state.breadCrumbText + "/" + item.value,
+                        breadCrumbValue:
+                          this.state.breadCrumbValue + "/" + item.key
+                      })
+                }
+              >
+                <ListItemIcon>
+                  <Fastfood />
+                </ListItemIcon>
+                <ListItemText primary={item.value} />
+                <ListItemSecondaryAction>
+                  {item.level !== 1 ? (
+                    <Checkbox
+                      checked={item.selected}
+                      onChange={() => this.props.handleToggle(item.key)}
+                    />
+                  ) : (
+                    ""
+                  )}
+                </ListItemSecondaryAction>
+              </ListItem>
+              <Divider />
+            </Fragment>
           ))}
         </List>
       </Fragment>

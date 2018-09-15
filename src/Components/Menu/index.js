@@ -19,6 +19,7 @@ import Tab from "@material-ui/core/Tab";
 // import { SaveIcon, LockIcon } from "../../assets/CustomControls/Icons";
 import SaveIcon from "@material-ui/icons/Save";
 import LockIcon from "@material-ui/icons/Lock";
+import PageviewIcon from "@material-ui/icons/PageviewRounded";
 
 import "../../App.css";
 import {
@@ -29,7 +30,8 @@ import {
 import sideImage from "../../assets/img/oranges.png";
 import pinIcon from "../../assets/img/pin.png";
 
-import { Tooltip } from "@material-ui/core";
+import { Tooltip, Icon } from "@material-ui/core";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 // import {
 //   List,
@@ -92,6 +94,10 @@ class Menu extends Component {
 
   UpdateMenu = MenuItems => {
     this.setState({ MenuItems });
+  };
+
+  previewMenu = () => {
+    alert("Preview menu - option under development");
   };
 
   render() {
@@ -172,7 +178,7 @@ class Menu extends Component {
             <Typography variant="headline">Menu</Typography>
           </Grid> */}
 
-          <Grid item xs={12} md={5} style={{ padding: "8px" }}>
+          <Grid item xs={12} md={4} style={{ padding: "8px" }}>
             <Paper style={{ padding: "0px", minHeight: "525px" }}>
               <div
                 style={{
@@ -230,40 +236,62 @@ class Menu extends Component {
             </Paper>
           </Grid>
 
-          <Grid item xs={12} md={7} style={{ padding: "8px" }}>
+          <Grid item xs={12} md={8} style={{ padding: "8px" }}>
             <div>
               <Paper style={{ padding: "8px", minHeight: "525px" }}>
-                <div
-                // style={{
-                //   backgroundImage: "url(" + sideImage + ")",
-                //   backgroundRepeat: "no-repeat",
-                //   backgroundSize: "auto"
-                // }}
+                <Grid
+                  container
+                  // style={{
+                  //   backgroundImage: "url(" + sideImage + ")",
+                  //   backgroundRepeat: "no-repeat",
+                  //   backgroundSize: "auto"
+                  // }}
                 >
-                  <div
-                    style={{
-                      position: "relative",
-                      top: "-25px",
-                      width: "150px",
-                      height: "auto",
-                      padding: "10px",
-                      // background: "linear-gradient(60deg, #66bb6a, #43a047)",
-                      background: "linear-gradient(60deg, #333333, #777777)",
+                  <Grid item xs={6}>
+                    <div
+                      style={{
+                        position: "relative",
+                        top: "-25px",
+                        width: "150px",
+                        height: "auto",
+                        padding: "10px",
+                        // background: "linear-gradient(60deg, #66bb6a, #43a047)",
+                        background: "linear-gradient(60deg, #333333, #777777)",
 
-                      boxShadow:
-                        "0 12px 20px -10px rgba(255, 152, 0, 0.28), 0 4px 20px 0px rgba(0, 0, 0, 0.12), 0 7px 8px -5px rgba(255, 152, 0, 0.2)",
-                      // "0 12px 20px -10px rgba(76, 175, 80, 0.28), 0 4px 20px 0px rgba(0, 0, 0, 0.12), 0 7px 8px -5px rgba(76, 175, 80, 0.2)",
-                      borderRadius: 3,
-                      border: 0,
-                      color: "white"
-                    }}
-                  >
-                    <Typography variant="subheading" style={{ color: "white" }}>
-                      <img src={pinIcon} style={{ height: "20px" }} />
-                      &nbsp;Selected Items
-                    </Typography>
-                  </div>
-                </div>
+                        boxShadow:
+                          "0 12px 20px -10px rgba(255, 152, 0, 0.28), 0 4px 20px 0px rgba(0, 0, 0, 0.12), 0 7px 8px -5px rgba(255, 152, 0, 0.2)",
+                        // "0 12px 20px -10px rgba(76, 175, 80, 0.28), 0 4px 20px 0px rgba(0, 0, 0, 0.12), 0 7px 8px -5px rgba(76, 175, 80, 0.2)",
+                        borderRadius: 3,
+                        border: 0,
+                        color: "white"
+                      }}
+                    >
+                      <Typography
+                        variant="subheading"
+                        style={{ color: "white" }}
+                      >
+                        <img src={pinIcon} style={{ height: "20px" }} />
+                        &nbsp;Selected Items
+                      </Typography>
+                    </div>
+                  </Grid>
+                  <Grid container direction="row" xs={6} justify="flex-end">
+                    <Tooltip title="Export to PDF">
+                      <FontAwesomeIcon
+                        icon="file-pdf"
+                        style={{
+                          fontSize: "30px",
+                          color: "red",
+                          boxShadow:
+                            "0 12px 20px -10px rgba(255, 152, 0, 0.28), 0 4px 20px 0px rgba(0, 0, 0, 0.12), 0 7px 8px -5px rgba(255, 152, 0, 0.2)",
+                          cursor: "pointer",
+                          padding: "2px"
+                        }}
+                        onClick={this.previewMenu}
+                      />
+                    </Tooltip>
+                  </Grid>
+                </Grid>
                 <MenuListSelected />
               </Paper>
             </div>

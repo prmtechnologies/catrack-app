@@ -140,11 +140,29 @@ const initialState = {
       level: 3,
       selected: false
     },
-    { key: 14, value: "Cereals", refKey: 7, level: 4, selected: false },
-    { key: 15, value: "Dairy", refKey: 7, level: 4, selected: false },
+    {
+      key: 14,
+      value: "Cereals",
+      desc:
+        "Muesli | Kellogg’s corn flakes | Oatmeal porridge | rice krispies |raisin bran",
+      refKey: 7,
+      level: 4,
+      selected: false
+    },
+    {
+      key: 15,
+      value: "Dairy",
+      desc:
+        "Fresh milk |skimmed milk  |margarine| herb butter | flavored yogurts | plain yoghurt",
+      refKey: 7,
+      level: 4,
+      selected: false
+    },
     {
       key: 16,
       value: "Morning Bakery",
+      desc:
+        "Garlic bread | croissant | brioche | brown bread | sour dough bread | multi grain bread ",
       refKey: 7,
       level: 4,
       selected: false
@@ -152,6 +170,8 @@ const initialState = {
     {
       key: 17,
       value: "Seasonal Juice",
+      desc:
+        "Freshly squeezed seasonal fruit and vegetable juice | orange | grape fruit |strawberry | tangerine| pineapple| kiwi | anar| carrot and orange | cucumber and mint ",
       refKey: 7,
       level: 4,
       selected: false
@@ -159,6 +179,8 @@ const initialState = {
     {
       key: 18,
       value: "Hot & Cold Beverages",
+      desc:
+        "Chamomile | Ceylon green| masala | jasmine | freshly brewed coffee |decaffeinated instant coffee | hot chocolate | Cappuccino | Latte |Espresso",
       refKey: 7,
       level: 4,
       selected: false
@@ -166,6 +188,8 @@ const initialState = {
     {
       key: 19,
       value: "Assorted International Cheese Platter",
+      desc:
+        "Gouda | Camembert | Danish blue | Gruyere | cheddar | cream cheese | Bavarian smoked cheese | Edam | assorted condiments| Melba, grapes, olives & crackers",
       refKey: 7,
       level: 4,
       selected: false
@@ -173,6 +197,8 @@ const initialState = {
     {
       key: 20,
       value: "Crudités With Assorted Dips",
+      desc:
+        "Carrots | tomatoes | cucumber | lettuce leaves |blanched broccoli | radish | hung yoghurt | peppercorn yoghurt | spicy mayonnaise",
       refKey: 7,
       level: 4,
       selected: false
@@ -180,6 +206,8 @@ const initialState = {
     {
       key: 21,
       value: "Vegetarian Club Tkac",
+      desc:
+        "Roasted chilies, grilled onions, grated cheddar cheese, in a toasted brown bread and topped with hot Mexican salsa and sour cream",
       refKey: 8,
       level: 4,
       selected: false
@@ -187,6 +215,8 @@ const initialState = {
     {
       key: 22,
       value: "Ratatouille ",
+      desc:
+        "Vegetables in tomato salsa, hash brown potato, and mustard mayonnaise in a bun",
       refKey: 8,
       level: 4,
       selected: false
@@ -194,6 +224,8 @@ const initialState = {
     {
       key: 23,
       value: "Sunrise Croissant Sandwich",
+      desc:
+        "Melted white cheddar, tomato, a smidge of garlic aioli sandwiched in a croissant",
       refKey: 8,
       level: 4,
       selected: false
@@ -201,6 +233,8 @@ const initialState = {
     {
       key: 24,
       value: "Chili Edam Panini",
+      desc:
+        "Double grilled sandwich in sour dough bread with chili Edam, tomato, onion ",
       refKey: 8,
       level: 4,
       selected: true
@@ -208,6 +242,8 @@ const initialState = {
     {
       key: 25,
       value: "Mini Vegetable Burger With Aged Cheddar Cheese",
+      desc:
+        "Grilled baby vegetable burger stuffed in toasted brioche with iceberg lettuce, tomato & remoulade dressing",
       refKey: 8,
       level: 4,
       selected: true
@@ -215,6 +251,7 @@ const initialState = {
     {
       key: 26,
       value: "Falafel Panini",
+      desc: "Falafel stuffed in pitta with garlic sauce & roasted pepper sauce",
       refKey: 8,
       level: 4,
       selected: true
