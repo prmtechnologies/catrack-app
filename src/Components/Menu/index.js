@@ -142,25 +142,23 @@ class Menu extends Component {
             style={{ padding: "8px" }}
           >
             <div style={{ padding: "10px" }}>
-              <ButtonPrimary>
+              <Button variant="contained">
                 <SaveIcon
                   className={classNames(classes.leftIcon, classes.iconSmall)}
                 />
                 Save
-              </ButtonPrimary>
+              </Button>
               &nbsp; &nbsp;
               <Tooltip title="Save & Lock">
-                <ButtonPrimary>
+                <Button variant="contained">
                   <LockIcon
                     className={classNames(classes.leftIcon, classes.iconSmall)}
                   />
                   Lock
-                </ButtonPrimary>
+                </Button>
               </Tooltip>
               &nbsp; &nbsp;
-              <Button variant="outlined" color="secondary">
-                Cancel
-              </Button>
+              <Button variant="outlined">Cancel</Button>
             </div>
           </Grid>
         </Grid>
@@ -183,24 +181,28 @@ class Menu extends Component {
               <div
                 style={{
                   position: "relative",
-                  top: "-25px",
                   left: "8px",
-                  width: "200px",
+                  top: "-15px",
+                  width: "150px",
                   height: "auto",
                   padding: "10px",
-                  // background: "linear-gradient(60deg, #ffa726, #fb8c00)",
-                  background: "linear-gradient(60deg, #333333, #777777)",
-                  boxShadow:
-                    "0 12px 20px -10px rgba(255, 152, 0, 0.28), 0 4px 20px 0px rgba(0, 0, 0, 0.12), 0 7px 8px -5px rgba(255, 152, 0, 0.2)",
+                  // // background: "linear-gradient(60deg, #66bb6a, #43a047)",
+                  // background: "linear-gradient(60deg, #222222, #777777)",
+
+                  // boxShadow:
+                  //   "0 12px 20px -10px rgba(255, 152, 0, 0.28), 0 4px 20px 0px rgba(0, 0, 0, 0.12), 0 7px 8px -5px rgba(255, 152, 0, 0.2)",
+                  // // "0 12px 20px -10px rgba(76, 175, 80, 0.28), 0 4px 20px 0px rgba(0, 0, 0, 0.12), 0 7px 8px -5px rgba(76, 175, 80, 0.2)",
+                  backgroundColor: "rgb(245, 247, 248)",
                   borderRadius: 3,
-                  border: 0,
+                  border: "1px solid silver",
                   color: "white"
                 }}
               >
-                <Typography variant="subheading" style={{ color: "white" }}>
-                  Select items from...
+                <Typography variant="subheading" style={{ color: "black" }}>
+                  &nbsp;Select Items
                 </Typography>
               </div>
+
               <div className={classes.root}>
                 <AppBar position="static" color="default">
                   <Tabs
@@ -208,7 +210,9 @@ class Menu extends Component {
                     onChange={this.handleChange}
                     indicatorColor="primary"
                     textColor="primary"
-                    fullWidth
+                    // fullWidth
+                    scrollable
+                    scrollButtons="auto"
                   >
                     <Tab label="Set Menus" />
                     <Tab label="Recent Menus" />
@@ -251,26 +255,28 @@ class Menu extends Component {
                     <div
                       style={{
                         position: "relative",
-                        top: "-25px",
+                        top: "-15px",
                         width: "150px",
                         height: "auto",
                         padding: "10px",
-                        // background: "linear-gradient(60deg, #66bb6a, #43a047)",
-                        background: "linear-gradient(60deg, #333333, #777777)",
+                        // // background: "linear-gradient(60deg, #66bb6a, #43a047)",
+                        // background: "linear-gradient(60deg, #222222, #777777)",
 
-                        boxShadow:
-                          "0 12px 20px -10px rgba(255, 152, 0, 0.28), 0 4px 20px 0px rgba(0, 0, 0, 0.12), 0 7px 8px -5px rgba(255, 152, 0, 0.2)",
-                        // "0 12px 20px -10px rgba(76, 175, 80, 0.28), 0 4px 20px 0px rgba(0, 0, 0, 0.12), 0 7px 8px -5px rgba(76, 175, 80, 0.2)",
+                        // boxShadow:
+                        //   "0 12px 20px -10px rgba(255, 152, 0, 0.28), 0 4px 20px 0px rgba(0, 0, 0, 0.12), 0 7px 8px -5px rgba(255, 152, 0, 0.2)",
+                        // // "0 12px 20px -10px rgba(76, 175, 80, 0.28), 0 4px 20px 0px rgba(0, 0, 0, 0.12), 0 7px 8px -5px rgba(76, 175, 80, 0.2)",
+                        backgroundColor: "rgb(245, 247, 248)",
                         borderRadius: 3,
-                        border: 0,
+                        border: "1px solid silver",
                         color: "white"
                       }}
                     >
                       <Typography
                         variant="subheading"
-                        style={{ color: "white" }}
+                        style={{ color: "black" }}
                       >
-                        <img src={pinIcon} style={{ height: "20px" }} />
+                        <FontAwesomeIcon icon="thumbtack" />
+                        {/* <img src={pinIcon} style={{ height: "20px" }} /> */}
                         &nbsp;Selected Items
                       </Typography>
                     </div>

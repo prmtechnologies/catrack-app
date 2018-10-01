@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+
 import {
   BrowserRouter as Router,
   Route,
@@ -39,13 +40,21 @@ import MasterMenu from "./Components/Admin/MasterMenu";
 
 // import bgImage from "./assets/img/edgar-castrejon-459822-unsplash.jpg";
 // import bgImage from "./assets/img/cherry.jpg";
-import bgImage from "./assets/img/oranges.jpg";
+// import bgImage from "./assets/img/oranges.jpg";
+import bgImage from "./assets/img/bgRepeat.png";
+import bgAppbar from "./assets/img/brooke-lark-230140-unsplash.jpg";
+
+import Avatar from "@material-ui/core/Avatar";
 
 import { library } from "@fortawesome/fontawesome-svg-core";
-import { faFile, faFilePdf } from "@fortawesome/free-solid-svg-icons";
-
+import {
+  faFile,
+  faFilePdf,
+  faThumbtack
+} from "@fortawesome/free-solid-svg-icons";
 library.add(faFile);
 library.add(faFilePdf);
+library.add(faThumbtack);
 
 const drawerWidth = 240;
 
@@ -165,8 +174,8 @@ class App extends Component {
             width: "100%",
 
             backgroundImage: "url(" + bgImage + ")",
-            backgroundRepeat: "no-repeat",
-            backgroundSize: "100% 100%"
+            backgroundRepeat: "repeat-y",
+            backgroundSize: "100%"
           }}
         />
 
@@ -178,7 +187,7 @@ class App extends Component {
             height: "100%",
             width: "100%",
             backgroundColor: "white",
-            opacity: ".9"
+            opacity: ".75"
           }}
         />
 
@@ -201,6 +210,13 @@ class App extends Component {
                   classes.appBar,
                   this.state.open && classes.appBarShift
                 )}
+                style={{
+                  background: "linear-gradient(to right,white 40%,#6e6e6e 100%)"
+                  // backgroundImage: "url(" + bgAppbar + ")",
+                  // backgroundRepeat: "no-repeat",
+                  // backgroundPosition: "right",
+                  // backgroundBlendMode: "overlay"
+                }}
               >
                 <Toolbar
                   disableGutters={!this.state.open}
@@ -230,14 +246,29 @@ class App extends Component {
                     style={{
                       color: "white",
                       fontWeight: "light",
-                      textShadow: "2px 2px silver"
+                      textShadow: "2px 2px gray"
                     }}
                   >
                     The Kitchen Art Company
                   </Typography>
-                  <IconButton color="inherit">
-                    <Badge badgeContent={4} color="secondary">
-                      <NotificationsIcon />
+
+                  <IconButton color="default">
+                    <Badge
+                      badgeContent={4}
+                      color="default"
+                      style={{ color: "silver" }}
+                    >
+                      {/* <NotificationsIcon style={{ color: "white" }} /> */}
+                      <Avatar
+                        style={{
+                          // margin: 10,
+                          background:
+                            "linear-gradient(to left,gray 33%, black 100%)",
+                          color: "#929292"
+                        }}
+                      >
+                        PS
+                      </Avatar>
                     </Badge>
                   </IconButton>
                 </Toolbar>
@@ -315,6 +346,7 @@ class App extends Component {
                     {this.checkRedirect()}
 
                     <Switch>
+                      <Route exact path="/" component={Dashboard} />
                       <Route exact path="/dashboard" component={Dashboard} />
                       <Route exact path="/menu" component={Menu} />
                       <Route
@@ -325,18 +357,6 @@ class App extends Component {
                     </Switch>
                   </div>
                 </Router>
-                {/* <Typography variant="display1" gutterBottom>
-                Orders
-              </Typography>
-              <Typography component="div" className={classes.chartContainer}>
-                <SimpleLineChart />
-              </Typography>
-              <Typography variant="display1" gutterBottom>
-                Products
-              </Typography>
-              <div className={classes.tableContainer}>
-                <SimpleTable />
-              </div> */}
               </main>
             </div>
           </React.Fragment>

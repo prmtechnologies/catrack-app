@@ -4,30 +4,10 @@ import { Typography, Divider } from "@material-ui/core";
 import LockIcon from "@material-ui/icons/Lock";
 import ClearIcon from "@material-ui/icons/Clear";
 import Grid from "@material-ui/core/Grid";
+import Input from "@material-ui/core/Input";
 
 class MenuListSelected extends Component {
   renderSelected = refKey => {
-    // return (
-    //   <div>
-    //     {this.props.MenuItems.filter(item => item.refKey === refKey).map(
-    //       item => (
-    //         <Fragment>
-    //           {item.selected ? (
-    //             <p
-    //               key={item.key}
-    //               onClick={() => this.props.removeMenuItem(item.key)}
-    //             >
-    //               {item.value}({item.key})
-    //             </p>
-    //           ) : (
-    //             ""
-    //           )}
-    //           {this.renderSelected(item.key)}
-    //         </Fragment>
-    //       )
-    //     )}
-    //   </div>
-    // );
     return (
       <div>
         {this.props.MenuItems.filter(item => item.refKey === refKey).map(
@@ -79,20 +59,25 @@ class MenuListSelected extends Component {
               <div style={{ padding: "5px" }}>
                 {item.selected ? (
                   <div>
-                    {spaces}
+                    {/* {spaces} */}
                     <Grid container direction="row">
-                      <Grid item xs={12}>
+                      <Grid item xs={1}>
                         <ClearIcon
                           style={{
-                            float: "right",
+                            // float: "left",
                             height: "25px",
                             color: "silver",
                             cursor: "pointer"
                           }}
                           onClick={() => this.props.removeMenuItem(item.key)}
                         />
-
-                        <Typography variant={variant} key={item.key}>
+                      </Grid>
+                      <Grid item xs={11}>
+                        <Typography
+                          variant={variant}
+                          key={item.key}
+                          style={{ cursor: "pointer" }}
+                        >
                           {item.level === 3 && item.selected ? (
                             <center>{item.value}</center>
                           ) : (
@@ -101,18 +86,29 @@ class MenuListSelected extends Component {
                         </Typography>
 
                         {item.level === 4 && item.selected ? (
-                          <Typography
-                            variant="body1"
-                            style={{ color: "silver", fontStyle: "italic" }}
-                          >
-                            {item.desc}
-                          </Typography>
+                          <Fragment>
+                            <Input
+                              defaultValue={item.desc}
+                              // className={classes.input}
+                              // inputProps={{
+                              //   "aria-label": "ItemDescription"
+                              // }}
+                              style={{
+                                width: "100%",
+                                fontStyle: "italic",
+                                fontSize: "15px",
+                                color: "gray"
+                              }}
+                            />
+                            <br />
+                            <br />
+                            <br />
+                          </Fragment>
                         ) : (
                           ""
                         )}
                       </Grid>
                     </Grid>
-                    {/* <Divider /> */}
                   </div>
                 ) : (
                   ""

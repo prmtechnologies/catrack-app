@@ -10,10 +10,14 @@ import {
 
 import { Delete as DeleteIcon } from "@material-ui/icons";
 
+// Styled Components
+import { H1 } from "../../assets/CustomControls/StyledComponents";
+
 export default class Dashboard extends Component {
   render() {
     return (
       <div>
+        <H1>Header1</H1>
         <Typography variant="headline">Dashboard</Typography>
 
         <Typography variant="body1">body1</Typography>

@@ -16,7 +16,6 @@ import Checkbox from "@material-ui/core/Checkbox";
 
 class MenuList extends Component {
   state = {
-    // menuItems: this.props.MenuItems,
     level: 1,
     refKey: 0,
     menuHeader: "",
