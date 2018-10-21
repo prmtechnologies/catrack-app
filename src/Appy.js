@@ -23,6 +23,8 @@ import Dashboard from "./Components/Dashboard";
 import Menu from "./Components/Menu";
 import MasterMenu from "./Components/Admin/MasterMenu";
 
+import SortableComponent from "./Components/Examples/SortableComponent";
+
 import { library } from "@fortawesome/fontawesome-svg-core";
 import {
   faFile,
@@ -142,6 +144,10 @@ class Appy extends Component {
                             <Redirect to="/" />
                           )
                         }
+                      />
+                      <Route
+                        path="/SortableComponent"
+                        component={SortableComponent}
                       />
                       <Route path="/dashboard" component={Dashboard} />
                       <Route path="/" component={Dashboard} />
