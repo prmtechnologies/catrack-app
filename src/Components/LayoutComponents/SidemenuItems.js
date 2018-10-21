@@ -125,7 +125,11 @@ class SidemenuItems extends Component {
 
         <Collapse in={this.state.openAdmin} timeout="auto" unmountOnExit>
           <List component="div" disablePadding>
-            <ListItem button className={classes.nested}>
+            <ListItem
+              button
+              onClick={() => this.props.redirectTo("/admin/dishes")}
+              className={classes.nested}
+            >
               <ListItemIcon>
                 <StarBorder style={{ color: "silver" }} />
               </ListItemIcon>
