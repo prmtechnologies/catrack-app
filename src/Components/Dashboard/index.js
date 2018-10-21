@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import Typography from "@material-ui/core/Typography";
 
 import {
-  MyButton,
   ButtonPrimary,
   ButtonSecondary,
   ButtonRed
@@ -17,8 +16,6 @@ export default class Dashboard extends Component {
   render() {
     return (
       <div>
-
-
         <H1>Header1</H1>
         <Typography variant="headline">Dashboard</Typography>
 

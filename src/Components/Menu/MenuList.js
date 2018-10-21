@@ -60,7 +60,7 @@ class MenuList extends Component {
         <Typography variant="subheading">{this.renderBreadCrumb()}</Typography>
         <List>
           {this.props.MenuItems.filter(
-            item => item.refKey == this.state.refKey
+            item => item.refKey === this.state.refKey
           ).map((item, id) => (
             <Fragment>
               <ListItem

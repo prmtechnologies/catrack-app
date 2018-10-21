@@ -19,18 +19,10 @@ import Tab from "@material-ui/core/Tab";
 // import { SaveIcon, LockIcon } from "../../assets/CustomControls/Icons";
 import SaveIcon from "@material-ui/icons/Save";
 import LockIcon from "@material-ui/icons/Lock";
-import PageviewIcon from "@material-ui/icons/PageviewRounded";
 
 import "../../App.css";
-import {
-  ButtonPrimary,
-  ButtonSecondary
-} from "../../assets/CustomControls/Buttons";
 
-import sideImage from "../../assets/img/oranges.png";
-import pinIcon from "../../assets/img/pin.png";
-
-import { Tooltip, Icon } from "@material-ui/core";
+import { Tooltip } from "@material-ui/core";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 // import {

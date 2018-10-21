@@ -167,7 +167,7 @@ const initialState = {
       dishId: 13
     }
   ],
-  MenuItems: [
+  MenuItems_DUP: [
     { key: 1, value: "Veg", refKey: 0, level: 1, selected: false },
     { key: 2, value: "Non Veg", refKey: 0, level: 1, selected: false },
     { key: 3, value: "Breakfast", refKey: 1, level: 2, selected: false },
@@ -435,7 +435,7 @@ const initialState = {
 };
 
 function toggleMenuItems(arr, refKey, selected) {
-  arr.filter(item => item.refKey == refKey).map(item => {
+  arr.filter(item => item.refKey === refKey).map(item => {
     item.selected = selected;
     toggleMenuItems(arr, item.key, selected);
   });
@@ -446,7 +446,7 @@ const reducer = (state = initialState, action) => {
     case "TOGGLE_MENUITEM":
       debugger;
       let newMenuItems = [...state.MenuItems];
-      const elIdx = newMenuItems.findIndex(el => el.key == action.menuKey);
+      const elIdx = newMenuItems.findIndex(el => el.key === action.menuKey);
       const selected = !newMenuItems[elIdx].selected;
       newMenuItems[elIdx].selected = selected;
 

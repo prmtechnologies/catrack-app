@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { render } from "react-dom";
 // import { BarChartIcon } from "@material-ui/icons/BarChart";
 import {
   SortableContainer,

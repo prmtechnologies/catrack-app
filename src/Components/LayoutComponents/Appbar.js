@@ -8,8 +8,6 @@ import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
-import classNames from "classnames";
-import Badge from "@material-ui/core/Badge";
 
 import imageLogo from "../../assets/img/logo.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -86,6 +84,7 @@ class Appbar extends Component {
             <img
               src={imageLogo}
               style={{ height: "50px", paddingRight: "10px" }}
+              alt="logo"
             />
 
             <Typography

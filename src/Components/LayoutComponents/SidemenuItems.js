@@ -1,14 +1,12 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 
-import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 
 import Divider from "@material-ui/core/Divider";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
-import ListSubheader from "@material-ui/core/ListSubheader";
 import DashboardIcon from "@material-ui/icons/Dashboard";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 import PeopleIcon from "@material-ui/icons/People";
@@ -23,7 +21,6 @@ import ExpandMore from "@material-ui/icons/ExpandMore";
 import { withStyles } from "@material-ui/core/styles";
 import List from "@material-ui/core/List";
 import StarBorder from "@material-ui/icons/StarBorder";
-import Dashboard from "../Dashboard/index";
 
 const styles = theme => ({
   root: {

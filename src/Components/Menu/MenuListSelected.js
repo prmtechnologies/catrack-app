@@ -1,7 +1,6 @@
 import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
-import { Typography, Divider } from "@material-ui/core";
-import LockIcon from "@material-ui/icons/Lock";
+import { Typography } from "@material-ui/core";
 import ClearIcon from "@material-ui/icons/Clear";
 import Grid from "@material-ui/core/Grid";
 import Input from "@material-ui/core/Input";
