@@ -23,7 +23,7 @@ const initialState = {
       selected: false
     }
   ],
-  MenuItems: [
+  MenuItems2: [
     { key: 1, value: "Veg", refKey: 0, level: 1, selected: false },
     { key: 2, value: "Non Veg", refKey: 0, level: 1, selected: false },
     { key: 3, value: "Breakfast", refKey: 1, level: 2, selected: false },
