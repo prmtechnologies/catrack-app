@@ -97,7 +97,7 @@ class Dishes extends React.Component {
         <br />
         <Divider />
         <Grid container spacing={0}>
-          <Grid item spacing={0} xs={12}>
+          <Grid item xs={12}>
             <Paper>
               <List>
                 {dishes.map(dish => {
