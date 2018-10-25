@@ -1,5 +1,4 @@
 import React from "react";
-import axios from "axios";
 
 import Grid from "@material-ui/core/Grid";
 import List from "@material-ui/core/List";
@@ -7,12 +6,9 @@ import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import Divider from "@material-ui/core/Divider";
-import { orange } from "@material-ui/core/colors";
 import { Typography, Paper } from "@material-ui/core";
 import Button from "@material-ui/core/Button";
-import AddIcon from "@material-ui/icons/Add";
 import Icon from "@material-ui/core/Icon";
-import DeleteIcon from "@material-ui/icons/Delete";
 
 import TextField from "@material-ui/core/TextField";
 import Dialog from "@material-ui/core/Dialog";
@@ -21,18 +17,19 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 
+import APIs from "../../../APIs/APIs";
+import Loader from "../../LayoutComponents/Loader";
+
 class Dishes extends React.Component {
   state = {
     dishes: [],
-    showDish: false
+    showDish: false,
+    showWait: true
   };
   componentDidMount() {
-    axios
-      .get("https://catrack-api.herokuapp.com/dishes?pageNumber=1&pageSize=50")
-      .then(res => {
-        console.log(res);
-        this.setState({ dishes: res.data });
-      });
+    APIs.getDishes(1, 10).then(res => {
+      this.setState({ dishes: res.data, showWait: false });
+    });
   }
 
   handleShowDish = () => {
@@ -44,7 +41,7 @@ class Dishes extends React.Component {
   };
 
   render() {
-    const { dishes } = this.state;
+    const { dishes, showWait } = this.state;
     return (
       <div style={{ padding: "0" }}>
         <Grid
@@ -118,6 +115,8 @@ class Dishes extends React.Component {
             </Paper>
           </Grid>
         </Grid>
+
+        {showWait ? <Loader /> : <span>{}</span>}
 
         <Dialog
           open={this.state.showDish}
