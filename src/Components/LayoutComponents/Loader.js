@@ -6,12 +6,15 @@ const Loader = props => {
     <div>
       <div
         style={{
-          margin: "125px auto",
-          position: "relative",
+          marginTop: "-50px",
+          marginLeft: "-50px",
+          top: "50%",
+          left: "50%",
+          position: "absolute",
           backgroundColor: "white",
           opacity: ".75",
-          height: "105px",
-          width: "105px",
+          height: "100px",
+          width: "100px",
           padding: "15px",
           alignContent: "center",
           textAlign: "center",
