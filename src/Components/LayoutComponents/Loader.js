@@ -1,9 +1,11 @@
 import React from "react";
-import "./Loader.css";
+// import "./Loader.css";
+
+import CircularProgress from "@material-ui/core/CircularProgress";
 
 const Loader = props => {
   return (
-    <div>
+    <div style={{ backgroundColor: "white" }}>
       <div
         style={{
           marginTop: "-50px",
@@ -11,17 +13,19 @@ const Loader = props => {
           top: "50%",
           left: "50%",
           position: "absolute",
-          backgroundColor: "white",
-          opacity: ".75",
+          backgroundColor: "silver",
+          opacity: ".9",
           height: "100px",
           width: "100px",
           padding: "15px",
           alignContent: "center",
           textAlign: "center",
-          borderRadius: "10px"
+          borderRadius: "10px",
+          border: "solid 1px silver"
         }}
       >
-        <div className="loader" />
+        <CircularProgress size={70} style={{ color: "black" }} thickness={3} />
+        {/* <div className="loader" /> */}
         {/* <span>Loading please wait...</span> */}
       </div>
     </div>

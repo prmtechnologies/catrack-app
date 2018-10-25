@@ -17,6 +17,8 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 
+import Pagination from "../../LayoutComponents/Pagination";
+
 import APIs from "../../../APIs/APIs";
 import Loader from "../../LayoutComponents/Loader";
 
@@ -24,13 +26,39 @@ class Dishes extends React.Component {
   state = {
     dishes: [],
     showDish: false,
-    showWait: true
+    showWait: true,
+    currentPage: 1
   };
+
   componentDidMount() {
-    APIs.getDishes(1, 10).then(res => {
+    this.bindDishes();
+  }
+
+  bindDishes = () => {
+    this.setState({ showWait: true });
+    APIs.getDishes(this.state.currentPage, 20).then(res => {
+      console.log(res.data);
       this.setState({ dishes: res.data, showWait: false });
     });
-  }
+  };
+
+  nextPage = () => {
+    this.setState(
+      { currentPage: this.state.currentPage + 1 /*RequestsList:[]*/ },
+      () => {
+        this.bindDishes();
+      }
+    );
+  };
+
+  prevPage = () => {
+    let currentPage = this.state.currentPage;
+    if (currentPage === 1) return;
+
+    this.setState({ currentPage: currentPage - 1 /*RequestsList:[]*/ }, () => {
+      this.bindDishes();
+    });
+  };
 
   handleShowDish = () => {
     this.setState({ showDish: true });
@@ -44,6 +72,8 @@ class Dishes extends React.Component {
     const { dishes, showWait } = this.state;
     return (
       <div style={{ padding: "0" }}>
+        {showWait ? <Loader /> : <span>{}</span>}
+
         <Grid
           container
           direction="row"
@@ -82,12 +112,19 @@ class Dishes extends React.Component {
               direction="row"
               justify="flex-end"
               alignItems="center"
-              spacing={0}
+              spacing={8}
             >
-              <Button variant="outlined">
+              <Button variant="outlined" size="small">
                 Search
                 <Icon style={{ marginLeft: "10px" }}>search_circle</Icon>
               </Button>
+              &nbsp;&nbsp;
+              <Pagination
+                nextPage={this.nextPage}
+                prevPage={this.prevPage}
+                currentPage={this.state.currentPage}
+                style={{ top: "5px" }}
+              />
             </Grid>
           </Grid>
         </Grid>
@@ -95,28 +132,26 @@ class Dishes extends React.Component {
         <Divider />
         <Grid container spacing={0}>
           <Grid item xs={12}>
-            <Paper>
-              <List>
-                {dishes.map(dish => {
-                  return (
-                    <ListItem
-                      key={dish._id}
-                      divider={true}
-                      button={true}
-                      onClick={this.handleShowDish}
-                    >
-                      {dish.name}
-                      <br />
-                      {dish.description}
-                    </ListItem>
-                  );
-                })}
-              </List>
-            </Paper>
+            {/* <Paper> */}
+            <List>
+              {dishes.map(dish => {
+                return (
+                  <ListItem
+                    key={dish._id}
+                    divider={true}
+                    button={true}
+                    onClick={this.handleShowDish}
+                  >
+                    {dish.name}
+                    <br />
+                    {dish.description}
+                  </ListItem>
+                );
+              })}
+            </List>
+            {/* </Paper> */}
           </Grid>
         </Grid>
-
-        {showWait ? <Loader /> : <span>{}</span>}
 
         <Dialog
           open={this.state.showDish}

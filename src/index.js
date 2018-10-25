@@ -27,11 +27,11 @@ ReactDOM.render(
           top: "0",
           left: "0",
           height: "100%",
-          width: "100%",
+          width: "100%"
 
-          backgroundImage: "url(" + bgImage + ")",
-          backgroundRepeat: "repeat-y",
-          backgroundSize: "100%"
+          // backgroundImage: "url(" + bgImage + ")",
+          // backgroundRepeat: "repeat-y",
+          // backgroundSize: "100%"
         }}
       />
       <div
