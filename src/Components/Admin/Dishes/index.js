@@ -22,12 +22,15 @@ import Pagination from "../../LayoutComponents/Pagination";
 import APIs from "../../../APIs/APIs";
 import Loader from "../../LayoutComponents/Loader";
 
+import DishDetail from "./DishDetail";
+
 class Dishes extends React.Component {
   state = {
     dishes: [],
     showDish: false,
     showWait: true,
-    currentPage: 1
+    currentPage: 1,
+    _id: 0
   };
 
   componentDidMount() {
@@ -60,8 +63,8 @@ class Dishes extends React.Component {
     });
   };
 
-  handleShowDish = () => {
-    this.setState({ showDish: true });
+  handleShowDish = _id => {
+    this.setState({ showDish: true, _id });
   };
 
   handleHideDish = () => {
@@ -100,7 +103,7 @@ class Dishes extends React.Component {
               alignItems="center"
               spacing={0}
             >
-              <Button>
+              <Button onClick={() => this.handleShowDish("0")}>
                 <Icon style={{ marginRight: "10px" }}>add_circle</Icon>
                 Add dish
               </Button>
@@ -140,7 +143,7 @@ class Dishes extends React.Component {
                     key={dish._id}
                     divider={true}
                     button={true}
-                    onClick={this.handleShowDish}
+                    onClick={() => this.handleShowDish(dish._id)}
                   >
                     {dish.name}
                     <br />
@@ -160,16 +163,9 @@ class Dishes extends React.Component {
         >
           <DialogTitle id="form-dialog-title">Update Dish</DialogTitle>
           <DialogContent>
-            <DialogContentText>
-              Update existing dish details...
-            </DialogContentText>
-            <TextField
-              autoFocus
-              margin="dense"
-              id="name"
-              label="Email Address"
-              type="email"
-              fullWidth
+            <DishDetail
+              _id={this.state._id}
+              handleHideDish={this.handleHideDish}
             />
           </DialogContent>
           <DialogActions>
