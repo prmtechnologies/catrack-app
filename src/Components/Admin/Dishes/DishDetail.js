@@ -107,12 +107,15 @@ class DishDetail extends React.Component {
       console.log(dishObj);
 
       if (_id == 0) {
-        APIs.postDish(dishObj);
+        APIs.postDish(dishObj).then(res =>
+          this.props.updateDishListItem(res.data)
+        );
       } else {
         APIs.putDish(_id, dishObj);
+        this.props.updateDishListItem({ ...dishObj, _id });
       }
 
-      this.props.handleHideDish();
+      this.props.hideDishDetail();
     } else {
       //   const errors = { invalidData: "Invalid data..." };
       //   this.setState({

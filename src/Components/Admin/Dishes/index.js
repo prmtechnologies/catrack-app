@@ -63,12 +63,27 @@ class Dishes extends React.Component {
     });
   };
 
-  handleShowDish = _id => {
+  showDishDetail = _id => {
     this.setState({ showDish: true, _id });
   };
 
-  handleHideDish = () => {
+  hideDishDetail = () => {
     this.setState({ showDish: false });
+  };
+
+  //After updating db document from popup window
+  //Update the list item document in the list page
+  updateDishListItem = dishObj => {
+    let dishes = this.state.dishes;
+    let index = -1;
+    dishes.map((dish, idx) => {
+      if (dish._id === this.state._id) {
+        index = idx;
+      }
+    });
+    if (index === -1) dishes.splice(0, 0, dishObj);
+    else dishes.splice(index, 1, dishObj);
+    this.setState({ dishes });
   };
 
   render() {
@@ -103,7 +118,7 @@ class Dishes extends React.Component {
               alignItems="center"
               spacing={0}
             >
-              <Button onClick={() => this.handleShowDish("0")}>
+              <Button onClick={() => this.showDishDetail("0")}>
                 <Icon style={{ marginRight: "10px" }}>add_circle</Icon>
                 Add dish
               </Button>
@@ -143,7 +158,7 @@ class Dishes extends React.Component {
                     key={dish._id}
                     divider={true}
                     button={true}
-                    onClick={() => this.handleShowDish(dish._id)}
+                    onClick={() => this.showDishDetail(dish._id)}
                   >
                     {dish.name}
                     <br />
@@ -158,20 +173,21 @@ class Dishes extends React.Component {
 
         <Dialog
           open={this.state.showDish}
-          onClose={this.handleHideDish}
+          onClose={this.hideDishDetail}
           aria-labelledby="form-dialog-title"
         >
           <DialogContent>
             <DishDetail
               _id={this.state._id}
-              handleHideDish={this.handleHideDish}
+              hideDishDetail={this.hideDishDetail}
+              updateDishListItem={this.updateDishListItem}
             />
           </DialogContent>
           {/* <DialogActions>
-            <Button onClick={this.handleHideDish} color="primary">
+            <Button onClick={this.hideDishDetail} color="primary">
               Cancel
             </Button>
-            <Button onClick={this.handleHideDish} color="primary">
+            <Button onClick={this.hideDishDetail} color="primary">
               Update
             </Button>
           </DialogActions> */}
