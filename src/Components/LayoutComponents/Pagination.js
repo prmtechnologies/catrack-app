@@ -15,6 +15,7 @@ const Pagination = props => {
             <input
               type="text"
               value={props.currentPage}
+              readOnly={true}
               //   onChange={props.currentPageChange}
               className="page-link"
               style={{ width: "45px" }}

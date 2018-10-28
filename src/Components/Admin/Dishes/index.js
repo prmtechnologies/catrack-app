@@ -161,21 +161,20 @@ class Dishes extends React.Component {
           onClose={this.handleHideDish}
           aria-labelledby="form-dialog-title"
         >
-          <DialogTitle id="form-dialog-title">Update Dish</DialogTitle>
           <DialogContent>
             <DishDetail
               _id={this.state._id}
               handleHideDish={this.handleHideDish}
             />
           </DialogContent>
-          <DialogActions>
+          {/* <DialogActions>
             <Button onClick={this.handleHideDish} color="primary">
               Cancel
             </Button>
             <Button onClick={this.handleHideDish} color="primary">
               Update
             </Button>
-          </DialogActions>
+          </DialogActions> */}
         </Dialog>
       </div>
     );
