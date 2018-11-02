@@ -27,6 +27,12 @@ const APIs = {
     var url = `${baseUrl}/dishes`;
     const res = await axios.post(url, data);
     return res;
+  },
+
+  async deleteDish(_id) {
+    var url = `${baseUrl}/dishes/${_id}`;
+    const res = await axios.delete(url);
+    return res;
   }
 };
 

@@ -12,6 +12,11 @@ import FormControlLabel from "@material-ui/core/FormControlLabel";
 import ListItemText from "@material-ui/core/ListItemText";
 import Select from "@material-ui/core/Select";
 import Checkbox from "@material-ui/core/Checkbox";
+import Icon from "@material-ui/core/Icon";
+import IconButton from "@material-ui/core/IconButton";
+import DeleteIcon from "@material-ui/icons/Delete";
+import SaveIcon from "@material-ui/icons/Save";
+import classNames from "classnames";
 
 import Loader from "../../LayoutComponents/Loader";
 import validateInput from "./DishDetailValidator";
@@ -41,6 +46,19 @@ const styles = theme => ({
 
   selectEmpty: {
     marginTop: theme.spacing.unit * 2
+  },
+
+  button: {
+    margin: theme.spacing.unit
+  },
+  leftIcon: {
+    marginRight: theme.spacing.unit
+  },
+  rightIcon: {
+    marginLeft: theme.spacing.unit
+  },
+  iconSmall: {
+    fontSize: 20
   }
 });
 
@@ -122,6 +140,15 @@ class DishDetail extends React.Component {
       //     errors: errors
       //   });
     }
+  };
+
+  onCancel = e => {
+    this.props.hideDishDetail();
+  };
+
+  onDelete = e => {
+    APIs.deleteDish(this.props._id);
+    this.props.updateDishListItem(this.props._id);
   };
 
   componentDidMount() {
@@ -390,18 +417,33 @@ class DishDetail extends React.Component {
           </Grid>
 
           <Grid item xs={12}>
-            <Button
-              type="submit"
-              onClick={this.onSubmit}
-              style={{
-                width: "100%",
-                height: "30px",
-                backgroundColor: "#B60C00",
-                color: "white"
-              }}
+            <Grid
+              container
+              direction="row"
+              justify="flex-end"
+              alignItems="center"
+              spacing={32}
             >
-              Submit
-            </Button>
+              <Button
+                type="submit"
+                variant="contained"
+                color="default"
+                onClick={this.onSubmit}
+              >
+                <SaveIcon
+                  className={classNames(classes.leftIcon, classes.iconSmall)}
+                />
+                Save
+              </Button>
+              &nbsp;&nbsp;
+              <Button
+                variant="outlined"
+                color="default"
+                onClick={this.onCancel}
+              >
+                Cancel
+              </Button>
+            </Grid>
           </Grid>
         </Grid>
 

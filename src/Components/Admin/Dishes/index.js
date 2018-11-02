@@ -9,6 +9,7 @@ import Divider from "@material-ui/core/Divider";
 import { Typography, Paper } from "@material-ui/core";
 import Button from "@material-ui/core/Button";
 import Icon from "@material-ui/core/Icon";
+import IconButton from "@material-ui/core/IconButton";
 
 import TextField from "@material-ui/core/TextField";
 import Dialog from "@material-ui/core/Dialog";
@@ -149,7 +150,7 @@ class Dishes extends React.Component {
         <br />
         <Divider />
         <Grid container spacing={0}>
-          <Grid item xs={12}>
+          <Grid item xs={11}>
             {/* <Paper> */}
             <List>
               {dishes.map(dish => {
