@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Fragment } from "react";
 
 import Grid from "@material-ui/core/Grid";
 import List from "@material-ui/core/List";
@@ -10,6 +10,9 @@ import { Typography, Paper } from "@material-ui/core";
 import Button from "@material-ui/core/Button";
 import Icon from "@material-ui/core/Icon";
 import IconButton from "@material-ui/core/IconButton";
+import DeleteIcon from "@material-ui/icons/Delete";
+import SaveIcon from "@material-ui/icons/Save";
+import classNames from "classnames";
 
 import TextField from "@material-ui/core/TextField";
 import Dialog from "@material-ui/core/Dialog";
@@ -70,6 +73,10 @@ class Dishes extends React.Component {
 
   hideDishDetail = () => {
     this.setState({ showDish: false });
+  };
+
+  deleteShowDetail = _id => {
+    alert(_id);
   };
 
   //After updating db document from popup window
@@ -150,21 +157,46 @@ class Dishes extends React.Component {
         <br />
         <Divider />
         <Grid container spacing={0}>
-          <Grid item xs={11}>
+          <Grid item xs={12}>
             {/* <Paper> */}
             <List>
               {dishes.map(dish => {
                 return (
-                  <ListItem
-                    key={dish._id}
-                    divider={true}
-                    button={true}
-                    onClick={() => this.showDishDetail(dish._id)}
-                  >
-                    {dish.name}
-                    <br />
-                    {dish.description}
-                  </ListItem>
+                  <Fragment>
+                    <ListItem key={dish._id} divider={true} /*button={true}*/>
+                      <table style={{ width: "100%" }}>
+                        <tbody>
+                          <tr>
+                            <td>{dish.name}</td>
+                            <td
+                              style={{
+                                alignContent: "right",
+                                textAlign: "right"
+                              }}
+                            >
+                              <i
+                                class="fa fa-pencil-square-o"
+                                aria-hidden="true"
+                                onClick={() => this.showDishDetail(dish._id)}
+                                style={{ cursor: "pointer" }}
+                              />
+                              &nbsp;&nbsp;&nbsp;
+                              <i
+                                class="fa fa-times"
+                                aria-hidden="true"
+                                onClick={() => this.deleteShowDetail(dish._id)}
+                                style={{ cursor: "pointer" }}
+                              />
+                            </td>
+                          </tr>
+                          <tr>
+                            <td colSpan="2">{dish.description}</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                      <br />
+                    </ListItem>
+                  </Fragment>
                 );
               })}
             </List>
