@@ -23,6 +23,7 @@ import Dashboard from "./Components/Dashboard";
 import Menu from "./Components/Menu";
 import MasterMenu from "./Components/Admin/MasterMenu";
 import Dishes from "./Components/Admin/Dishes";
+import Test1 from "./Components/TESTING/Test1";
 
 import SortableComponent from "./Components/Examples/SortableComponent";
 
@@ -152,6 +153,7 @@ class Appy extends Component {
                       />
                       <Route path="/dashboard" component={Dashboard} />
                       <Route path="/admin/dishes" component={Dishes} />
+                      <Route path="/testing/test1" component={Test1} />
                       <Route path="/" component={Dashboard} />
                     </Switch>
                   </Fragment>

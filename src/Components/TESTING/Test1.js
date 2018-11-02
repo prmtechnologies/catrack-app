@@ -1,5 +1,4 @@
 import React, { Component, Fragment } from "react";
-
 import {
   SortableContainer,
   SortableElement,
@@ -7,34 +6,35 @@ import {
   SortableHandle
 } from "react-sortable-hoc";
 
+import List from "@material-ui/core/List";
+import ListItem from "@material-ui/core/ListItem";
+import { Divider } from "@material-ui/core";
+
 const DragHandle = SortableHandle(() => (
-  <span style={{ cursor: "pointer" }}>:: </span>
+  <span
+    className="fa fa-bars"
+    aria-hidden="true"
+    style={{ cursor: "pointer", color: "silver", paddingRight: "13px" }}
+  />
 )); // This can be any component you want
 
 const SortableItem = SortableElement(({ item }) => (
-  <div>
-    <div
-      style={{
-        padding: "20px",
-        border: "solid 1px silver",
-        backgroundColor: "white"
-      }}
-    >
+  <Fragment>
+    <ListItem>
       <DragHandle />
-      {item.text1}
-      <br />
-      {item.text2}
-    </div>
-  </div>
+      <FormattedComponent item={item} />
+    </ListItem>
+    <Divider />
+  </Fragment>
 ));
 
 const SortableList = SortableContainer(({ items }) => {
   return (
-    <div style={{ listStyle: "none" }}>
+    <List>
       {items.map((item, index) => (
         <SortableItem key={`item-${index}`} index={index} item={item} />
       ))}
-    </div>
+    </List>
   );
 });
 
@@ -57,7 +57,7 @@ const items = [
   }
 ];
 
-export default class SortableComponent extends Component {
+export default class Test1 extends Component {
   state = { items: items };
 
   onSortEnd = ({ oldIndex, newIndex }) => {
@@ -70,3 +70,43 @@ export default class SortableComponent extends Component {
     return <SortableList items={this.state.items} onSortEnd={this.onSortEnd} />;
   }
 }
+
+const FormattedComponent = ({ item }) => {
+  if (item.type === "Title") {
+    return (
+      <Fragment>
+        <span style={{ fontSize: "20px" }}>{item.text1}</span>
+      </Fragment>
+    );
+  } else if (item.type === "Description") {
+    return (
+      <Fragment>
+        <span style={{ fontSize: "13px", fontStyle: "italic" }}>
+          {item.text1}
+        </span>
+      </Fragment>
+    );
+  } else if (item.type === "Dish") {
+    return (
+      <Fragment>
+        <table>
+          <tbody>
+            <tr>
+              <td>
+                <span style={{ fontSize: "17px" }}>{item.text1}</span>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <span style={{ fontSize: "13px", fontStyle: "italic" }}>
+                  {item.text2}
+                </span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <br />
+      </Fragment>
+    );
+  }
+};
