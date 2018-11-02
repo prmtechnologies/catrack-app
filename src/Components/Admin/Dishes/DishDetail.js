@@ -12,12 +12,8 @@ import FormControlLabel from "@material-ui/core/FormControlLabel";
 import ListItemText from "@material-ui/core/ListItemText";
 import Select from "@material-ui/core/Select";
 import Checkbox from "@material-ui/core/Checkbox";
-import Icon from "@material-ui/core/Icon";
-import IconButton from "@material-ui/core/IconButton";
-import DeleteIcon from "@material-ui/icons/Delete";
 import SaveIcon from "@material-ui/icons/Save";
 import classNames from "classnames";
-
 import Loader from "../../LayoutComponents/Loader";
 import validateInput from "./DishDetailValidator";
 import APIs from "../../../APIs/APIs";

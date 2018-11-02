@@ -3,35 +3,27 @@ import React, { Fragment } from "react";
 import Grid from "@material-ui/core/Grid";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
-import ListItemIcon from "@material-ui/core/ListItemIcon";
-import ListItemText from "@material-ui/core/ListItemText";
 import Divider from "@material-ui/core/Divider";
 import { Typography, Paper } from "@material-ui/core";
 import Button from "@material-ui/core/Button";
 import Icon from "@material-ui/core/Icon";
-import IconButton from "@material-ui/core/IconButton";
-import DeleteIcon from "@material-ui/icons/Delete";
-import SaveIcon from "@material-ui/icons/Save";
-import classNames from "classnames";
-
-import TextField from "@material-ui/core/TextField";
 import Dialog from "@material-ui/core/Dialog";
-import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
+import Pagination from "../../LayoutComponents/Pagination";
+import APIs from "../../../APIs/APIs";
+import Loader from "../../LayoutComponents/Loader";
+import { DialogActions } from "@material-ui/core/DialogActions";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 
-import Pagination from "../../LayoutComponents/Pagination";
-
-import APIs from "../../../APIs/APIs";
-import Loader from "../../LayoutComponents/Loader";
-
 import DishDetail from "./DishDetail";
+import DishDelete from "./DishDelete";
 
 class Dishes extends React.Component {
   state = {
     dishes: [],
-    showDish: false,
+    showDialog: false,
+    dialogContent: "",
     showWait: true,
     currentPage: 1,
     _id: 0
@@ -67,16 +59,12 @@ class Dishes extends React.Component {
     });
   };
 
-  showDishDetail = _id => {
-    this.setState({ showDish: true, _id });
+  showDialog = (_id, dialogContent) => {
+    this.setState({ showDialog: true, _id, dialogContent });
   };
 
-  hideDishDetail = () => {
-    this.setState({ showDish: false });
-  };
-
-  deleteShowDetail = _id => {
-    alert(_id);
+  hideDialog = () => {
+    this.setState({ showDialog: false });
   };
 
   //After updating db document from popup window
@@ -91,6 +79,13 @@ class Dishes extends React.Component {
     });
     if (index === -1) dishes.splice(0, 0, dishObj);
     else dishes.splice(index, 1, dishObj);
+    this.setState({ dishes });
+  };
+
+  deleteDishListItem = _id => {
+    let dishes = this.state.dishes;
+    let index = dishes.findIndex(i => i._id === _id);
+    if (index !== -1) dishes.splice(index, 1);
     this.setState({ dishes });
   };
 
@@ -126,7 +121,7 @@ class Dishes extends React.Component {
               alignItems="center"
               spacing={0}
             >
-              <Button onClick={() => this.showDishDetail("0")}>
+              <Button onClick={() => this.showDialog("0", "DishDetail")}>
                 <Icon style={{ marginRight: "10px" }}>add_circle</Icon>
                 Add dish
               </Button>
@@ -177,14 +172,18 @@ class Dishes extends React.Component {
                               <i
                                 class="fa fa-pencil-square-o"
                                 aria-hidden="true"
-                                onClick={() => this.showDishDetail(dish._id)}
+                                onClick={() =>
+                                  this.showDialog(dish._id, "DishDetail")
+                                }
                                 style={{ cursor: "pointer" }}
                               />
                               &nbsp;&nbsp;&nbsp;
                               <i
                                 class="fa fa-times"
                                 aria-hidden="true"
-                                onClick={() => this.deleteShowDetail(dish._id)}
+                                onClick={() =>
+                                  this.showDialog(dish._id, "DishDelete")
+                                }
                                 style={{ cursor: "pointer" }}
                               />
                             </td>
@@ -205,25 +204,25 @@ class Dishes extends React.Component {
         </Grid>
 
         <Dialog
-          open={this.state.showDish}
-          onClose={this.hideDishDetail}
+          open={this.state.showDialog}
+          onClose={this.hideDialog}
           aria-labelledby="form-dialog-title"
         >
           <DialogContent>
-            <DishDetail
-              _id={this.state._id}
-              hideDishDetail={this.hideDishDetail}
-              updateDishListItem={this.updateDishListItem}
-            />
+            {this.state.dialogContent === "DishDetail" ? (
+              <DishDetail
+                _id={this.state._id}
+                hideDishDetail={this.hideDialog}
+                updateDishListItem={this.updateDishListItem}
+              />
+            ) : (
+              <DishDelete
+                _id={this.state._id}
+                hideDialog={this.hideDialog}
+                deleteDishListItem={this.deleteDishListItem}
+              />
+            )}
           </DialogContent>
-          {/* <DialogActions>
-            <Button onClick={this.hideDishDetail} color="primary">
-              Cancel
-            </Button>
-            <Button onClick={this.hideDishDetail} color="primary">
-              Update
-            </Button>
-          </DialogActions> */}
         </Dialog>
       </div>
     );
