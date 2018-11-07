@@ -1,112 +1,230 @@
-import React, { Component, Fragment } from "react";
-import {
-  SortableContainer,
-  SortableElement,
-  arrayMove,
-  SortableHandle
-} from "react-sortable-hoc";
+import React, { Fragment } from "react";
+import { Component } from "react";
+import uuidv1 from "uuid/v1";
 
-import List from "@material-ui/core/List";
-import ListItem from "@material-ui/core/ListItem";
+import Grid from "@material-ui/core/Grid";
 import { Divider } from "@material-ui/core";
+import Button from "@material-ui/core/Button";
 
-const DragHandle = SortableHandle(() => (
-  <span
-    className="fa fa-bars"
-    aria-hidden="true"
-    style={{ cursor: "pointer", color: "silver", paddingRight: "13px" }}
-  />
-)); // This can be any component you want
+import TextField from "@material-ui/core/TextField";
+import Dialog from "@material-ui/core/Dialog";
+import DialogActions from "@material-ui/core/DialogActions";
+import DialogContent from "@material-ui/core/DialogContent";
+import DialogContentText from "@material-ui/core/DialogContentText";
+import DialogTitle from "@material-ui/core/DialogTitle";
 
-const SortableItem = SortableElement(({ item }) => (
-  <Fragment>
-    <ListItem>
-      <DragHandle />
-      <FormattedComponent item={item} />
-    </ListItem>
-    <Divider />
-  </Fragment>
-));
+import "./breadCrumb.css";
 
-const SortableList = SortableContainer(({ items }) => {
-  return (
-    <List>
-      {items.map((item, index) => (
-        <SortableItem key={`item-${index}`} index={index} item={item} />
-      ))}
-    </List>
-  );
-});
-
-const items = [
-  { type: "Title", text1: "APPAMS (RICE AND COCONUT HOPPERS)", text2: "" },
+/**
+ * headType: ["folder","file","item"]
+ * itemType: ["title","desc","dish"]
+ */
+const menus = [
+  { _id: "1", name: "Veg", type: "folder", parentId: "0" },
+  { _id: "2", name: "Non Veg", type: "folder", parentId: "0" },
+  { _id: "3", name: "Breakfast", type: "folder", parentId: "2" },
+  { _id: "4", name: "Master sub file", type: "folder", parentId: "3" },
+  { _id: "5", name: "Appams", type: "folder", parentId: "4" },
   {
-    type: "Description",
-    text1:
-      "A South- Indian speciality, Appams are essentially a fermented rice and coconut lace pancake (also referred to as hoppers) with a thicker spongey center. They are delicately sweet, light ‘n crispy along the edges and fluffy ‘n soft in the center. Perfect for mopping up traditional Kerela stews.",
-    text2: ""
+    _id: "6",
+    name: "Appams Non Veg",
+    type: "file",
+    parentId: "5",
+    contents: [
+      { text1: "APPAMS (RICE AND COCONUT HOPPERS)", text2: "", type: "title" },
+      {
+        text1:
+          "A South- Indian speciality, Appams are essentially a fermented rice and coconut lace pancake (also referred to as hoppers) with a thicker spongey center. They are delicately sweet, light ‘n crispy along the edges and fluffy ‘n soft in the center. Perfect for mopping up traditional Kerela stews.",
+        text2: "",
+        type: "desc"
+      },
+      { text1: "Chili appams ", text2: "", type: "dish" },
+      { text1: "Egg appams", text2: "", type: "dish" },
+      { text1: "Oatmeal appams", text2: "", type: "dish" },
+      { text1: "Soya appams", text2: "", type: "dish" },
+      { text1: "Served with:", text2: "", type: "desc" },
+      {
+        text1: "Chicken stew with vegetables & Vegetable stew",
+        text2: "Desi ghee, gunpowder",
+        type: "dish"
+      }
+    ]
   },
-  { type: "Dish", text1: "CHILI APPAMS", text2: "" },
-  { type: "Dish", text1: "OATMEAL APPAMS", text2: "" },
-  { type: "Dish", text1: "SOYA APPAMS", text2: "" },
-  { type: "Description", text1: "Served with:", text2: "" },
-  {
-    type: "Dish",
-    text1: "VEGETABLE STEW",
-    text2: "Desi ghee, gunpowder & assorted Podi"
-  }
+  { _id: "7", name: "Appams Veg", type: "file", parentId: "5", contents: [] }
 ];
 
-export default class Test1 extends Component {
-  state = { items: items };
+const BreadCrump = props => {
+  let links = [];
+  let _id = props._id;
+  let menus = props.menus;
 
-  onSortEnd = ({ oldIndex, newIndex }) => {
-    this.setState({
-      items: arrayMove(this.state.items, oldIndex, newIndex)
-    });
+  while (_id !== "0") {
+    let ele = menus.find(ele => ele._id === _id);
+    links.splice(
+      0,
+      0,
+      <li>
+        <a href="#" onClick={() => props.onClick(ele._id)}>
+          {ele.name}
+        </a>
+      </li>
+    );
+    _id = ele.parentId;
+  }
+
+  links.splice(
+    0,
+    0,
+    <li>
+      <a href="#" onClick={() => props.onClick("0")}>
+        Menus
+      </a>
+    </li>
+  );
+
+  return <ul className="breadcrumb">{links}</ul>;
+};
+
+export default class Test1 extends Component {
+  state = {
+    parentId: "0",
+    menus: menus,
+    open: false,
+    type: "",
+    name: ""
+  };
+
+  itemClick = _id => {
+    this.setState({ parentId: _id });
+  };
+
+  addFolderFile = type => {
+    let newMenus = [...this.state.menus];
+    const newObj = {
+      _id: uuidv1(),
+      name: this.state.name,
+      type: type,
+      parentId: this.state.parentId
+    };
+    newMenus.push(newObj);
+    this.setState({ menus: newMenus, open: false });
+  };
+
+  handleOpen = type => {
+    this.setState({ open: true, type });
+  };
+
+  handleClose = () => {
+    this.setState({ open: false });
+  };
+
+  handleChange = e => {
+    this.setState({ [e.target.id]: e.target.value });
   };
 
   render() {
-    return <SortableList items={this.state.items} onSortEnd={this.onSortEnd} />;
+    const { parentId, menus } = this.state;
+
+    return (
+      <Fragment>
+        <Grid
+          container
+          direction="row"
+          justify="flex-start"
+          alignItems="center"
+        >
+          <Grid item xs={9}>
+            <Grid
+              container
+              direction="row"
+              justify="flex-start"
+              alignItems="center"
+            >
+              <BreadCrump
+                menus={menus}
+                _id={parentId}
+                onClick={this.itemClick}
+              />
+            </Grid>
+          </Grid>
+
+          <Grid item xs={3}>
+            <Grid
+              container
+              direction="row"
+              justify="flex-end"
+              alignItems="center"
+            >
+              <Grid item>
+                <Button onClick={() => this.handleOpen("folder")}>
+                  <i className="fa fa-folder" style={{ color: "orange" }} />
+                  &nbsp;Add&nbsp;
+                </Button>
+                <Button onClick={() => this.handleOpen("file")}>
+                  <i className="fa fa-file" style={{ color: "red" }} />
+                  &nbsp;Add&nbsp;
+                </Button>
+              </Grid>
+            </Grid>
+          </Grid>
+        </Grid>
+
+        <Grid
+          container
+          direction="row"
+          justify="flex-start"
+          alignItems="center"
+        >
+          {menus.filter(ele => ele.parentId === parentId).map(item => (
+            <Grid item xs={12}>
+              <p key={item._id} onClick={() => this.itemClick(item._id)}>
+                {item.type === "folder" ? (
+                  <i className="fa fa-folder" style={{ color: "orange" }} />
+                ) : (
+                  <i className="fa fa-file" style={{ color: "red" }} />
+                )}
+                <span style={{ paddingLeft: "15px" }}>{item.name}</span>
+                <Divider />
+              </p>
+            </Grid>
+          ))}
+        </Grid>
+
+        <Dialog
+          open={this.state.open}
+          onClose={this.handleClose}
+          aria-labelledby="form-dialog-title"
+        >
+          <DialogTitle id="form-dialog-title">
+            {this.state.type} name
+          </DialogTitle>
+          <DialogContent>
+            <DialogContentText>
+              Enter name of the new {this.state.type}
+            </DialogContentText>
+            <TextField
+              autoFocus
+              margin="dense"
+              id="name"
+              label={this.state.type}
+              type="text"
+              fullWidth
+              onChange={this.handleChange}
+            />
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={this.handleClose} color="primary">
+              Cancel
+            </Button>
+            <Button
+              onClick={() => this.addFolderFile(this.state.type)}
+              color="primary"
+            >
+              Create
+            </Button>
+          </DialogActions>
+        </Dialog>
+      </Fragment>
+    );
   }
 }
-
-const FormattedComponent = ({ item }) => {
-  if (item.type === "Title") {
-    return (
-      <Fragment>
-        <span style={{ fontSize: "20px" }}>{item.text1}</span>
-      </Fragment>
-    );
-  } else if (item.type === "Description") {
-    return (
-      <Fragment>
-        <span style={{ fontSize: "13px", fontStyle: "italic" }}>
-          {item.text1}
-        </span>
-      </Fragment>
-    );
-  } else if (item.type === "Dish") {
-    return (
-      <Fragment>
-        <table>
-          <tbody>
-            <tr>
-              <td>
-                <span style={{ fontSize: "17px" }}>{item.text1}</span>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <span style={{ fontSize: "13px", fontStyle: "italic" }}>
-                  {item.text2}
-                </span>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-        <br />
-      </Fragment>
-    );
-  }
-};
