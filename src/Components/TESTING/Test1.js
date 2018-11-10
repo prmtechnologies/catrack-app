@@ -2,18 +2,16 @@ import React, { Fragment } from "react";
 import { Component } from "react";
 import uuidv1 from "uuid/v1";
 
-import Grid from "@material-ui/core/Grid";
-import { Divider } from "@material-ui/core";
 import Button from "@material-ui/core/Button";
+import Grid from "@material-ui/core/Grid";
+import Paper from "@material-ui/core/Paper";
+import { Divider } from "@material-ui/core";
 
-import TextField from "@material-ui/core/TextField";
 import Dialog from "@material-ui/core/Dialog";
-import DialogActions from "@material-ui/core/DialogActions";
-import DialogContent from "@material-ui/core/DialogContent";
-import DialogContentText from "@material-ui/core/DialogContentText";
-import DialogTitle from "@material-ui/core/DialogTitle";
-
-import "./breadCrumb.css";
+import Test1Dialog from "./Test1Dialog";
+import { BreadCrump } from "./Test1Breadcrumb";
+import { Test1Buttons } from "./Test1Buttons";
+import { Test1FormattedDish } from "./Test1FormattedDish";
 
 /**
  * headType: ["folder","file","item"]
@@ -38,7 +36,7 @@ const menus = [
         text2: "",
         type: "desc"
       },
-      { text1: "Chili appams ", text2: "", type: "dish" },
+      { text1: "Chili appams", text2: "", type: "dish" },
       { text1: "Egg appams", text2: "", type: "dish" },
       { text1: "Oatmeal appams", text2: "", type: "dish" },
       { text1: "Soya appams", text2: "", type: "dish" },
@@ -53,38 +51,6 @@ const menus = [
   { _id: "7", name: "Appams Veg", type: "file", parentId: "5", contents: [] }
 ];
 
-const BreadCrump = props => {
-  let links = [];
-  let _id = props._id;
-  let menus = props.menus;
-
-  while (_id !== "0") {
-    let ele = menus.find(ele => ele._id === _id);
-    links.splice(
-      0,
-      0,
-      <li>
-        <a href="#" onClick={() => props.onClick(ele._id)}>
-          {ele.name}
-        </a>
-      </li>
-    );
-    _id = ele.parentId;
-  }
-
-  links.splice(
-    0,
-    0,
-    <li>
-      <a href="#" onClick={() => props.onClick("0")}>
-        Menus
-      </a>
-    </li>
-  );
-
-  return <ul className="breadcrumb">{links}</ul>;
-};
-
 export default class Test1 extends Component {
   state = {
     parentId: "0",
@@ -94,17 +60,19 @@ export default class Test1 extends Component {
     name: ""
   };
 
-  itemClick = _id => {
-    this.setState({ parentId: _id });
+  itemClick = (_id, type) => {
+    console.log("TYPE: " + type);
+    this.setState({ parentId: _id, type });
   };
 
-  addFolderFile = type => {
+  addFolderFile = (name, type) => {
     let newMenus = [...this.state.menus];
     const newObj = {
       _id: uuidv1(),
-      name: this.state.name,
+      name: name,
       type: type,
-      parentId: this.state.parentId
+      parentId: this.state.parentId,
+      contents: []
     };
     newMenus.push(newObj);
     this.setState({ menus: newMenus, open: false });
@@ -118,15 +86,12 @@ export default class Test1 extends Component {
     this.setState({ open: false });
   };
 
-  handleChange = e => {
-    this.setState({ [e.target.id]: e.target.value });
-  };
-
   render() {
-    const { parentId, menus } = this.state;
+    const { parentId, menus, type } = this.state;
 
     return (
       <Fragment>
+        {/* Header ________________________________________________________________________________*/}
         <Grid
           container
           direction="row"
@@ -149,80 +114,96 @@ export default class Test1 extends Component {
           </Grid>
 
           <Grid item xs={3}>
-            <Grid
-              container
-              direction="row"
-              justify="flex-end"
-              alignItems="center"
-            >
-              <Grid item>
-                <Button onClick={() => this.handleOpen("folder")}>
-                  <i className="fa fa-folder" style={{ color: "orange" }} />
-                  &nbsp;Add&nbsp;
-                </Button>
-                <Button onClick={() => this.handleOpen("file")}>
-                  <i className="fa fa-file" style={{ color: "red" }} />
-                  &nbsp;Add&nbsp;
-                </Button>
-              </Grid>
-            </Grid>
+            <Test1Buttons handleOpen={this.handleOpen} type={type} />
           </Grid>
         </Grid>
 
+        {/* Menu item______________________________________________________________________________*/}
         <Grid
           container
           direction="row"
           justify="flex-start"
           alignItems="center"
         >
-          {menus.filter(ele => ele.parentId === parentId).map(item => (
-            <Grid item xs={12}>
-              <p key={item._id} onClick={() => this.itemClick(item._id)}>
-                {item.type === "folder" ? (
-                  <i className="fa fa-folder" style={{ color: "orange" }} />
-                ) : (
-                  <i className="fa fa-file" style={{ color: "red" }} />
-                )}
-                <span style={{ paddingLeft: "15px" }}>{item.name}</span>
-                <Divider />
-              </p>
+          {menus.filter(ele => ele.parentId === parentId).length > 0 ? (
+            // Render File/folder options_________________________________
+            menus.filter(ele => ele.parentId === parentId).map(item => (
+              <Grid item xs={12}>
+                <p key={item._id}>
+                  {item.type === "folder" ? (
+                    <i className="fa fa-folder" style={{ color: "orange" }} />
+                  ) : (
+                    <i className="fa fa-file" style={{ color: "red" }} />
+                  )}
+                  <span
+                    style={{ paddingLeft: "15px", cursor: "pointer" }}
+                    onClick={() => this.itemClick(item._id, item.type)}
+                  >
+                    {item.name}
+                  </span>
+                  <Divider />
+                </p>
+              </Grid>
+            ))
+          ) : (
+            // Render dish details________________________________________
+            <Grid
+              container
+              direction="row"
+              justify="space-between"
+              alignItems="flex-start"
+            >
+              {/* Dish details editable __________________________________*/}
+              <div
+                style={{
+                  maxWidth: "595px",
+                  minHeight: "842px",
+                  padding: "15px 10px"
+                }}
+              >
+                <ul style={{ listStyleType: "none" }}>
+                  {menus
+                    .find(ele => ele._id === parentId)
+                    .contents.map(dish => (
+                      <li>
+                        <Test1FormattedDish item={dish} />
+                      </li>
+                    ))}
+                </ul>
+              </div>
+              {/* Dish details preview ___________________________________*/}
+              <Paper
+                style={{
+                  maxWidth: "595px",
+                  minHeight: "842px",
+                  padding: "15px 10px"
+                }}
+              >
+                <ul style={{ listStyleType: "none" }}>
+                  {menus
+                    .find(ele => ele._id === parentId)
+                    .contents.map(dish => (
+                      <li>
+                        <Test1FormattedDish item={dish} />
+                      </li>
+                    ))}
+                </ul>
+              </Paper>
             </Grid>
-          ))}
+          )}
         </Grid>
 
+        {/* Dialog_________________________________________________________________________________*/}
         <Dialog
           open={this.state.open}
           onClose={this.handleClose}
           aria-labelledby="form-dialog-title"
         >
-          <DialogTitle id="form-dialog-title">
-            {this.state.type} name
-          </DialogTitle>
-          <DialogContent>
-            <DialogContentText>
-              Enter name of the new {this.state.type}
-            </DialogContentText>
-            <TextField
-              autoFocus
-              margin="dense"
-              id="name"
-              label={this.state.type}
-              type="text"
-              fullWidth
-              onChange={this.handleChange}
-            />
-          </DialogContent>
-          <DialogActions>
-            <Button onClick={this.handleClose} color="primary">
-              Cancel
-            </Button>
-            <Button
-              onClick={() => this.addFolderFile(this.state.type)}
-              color="primary"
-            >
-              Create
-            </Button>
-          </DialogActions>
+          <Test1Dialog
+            type={this.state.type}
+            handleClose={this.handleClose}
+            addFolderFile={this.addFolderFile}
+          />
         </Dialog>
       </Fragment>
     );
